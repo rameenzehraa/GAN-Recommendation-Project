@@ -1,21 +1,20 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
+import os
 
 class MovieLensLoader:
-    """Loads and prepares MovieLens-1M dataset"""
-    
-    def __init__(self, data_path='data/ml-1m'):
+    def __init__(self, data_path='data/raw/ml-1m'):
         self.data_path = data_path
         self.ratings = None
         self.movies = None
         self.users = None
         
     def load_data(self):
-        """Load all dataset files"""
+        """Load MovieLens-1M dataset"""
         print("Loading MovieLens-1M dataset...")
         
-        # Load ratings (UserID::MovieID::Rating::Timestamp)
+        # Load ratings
         self.ratings = pd.read_csv(
             f'{self.data_path}/ratings.dat',
             sep='::',
@@ -24,7 +23,7 @@ class MovieLensLoader:
             encoding='latin-1'
         )
         
-        # Load movies (MovieID::Title::Genres)
+        # Load movies
         self.movies = pd.read_csv(
             f'{self.data_path}/movies.dat',
             sep='::',
@@ -33,7 +32,7 @@ class MovieLensLoader:
             encoding='latin-1'
         )
         
-        # Load users (UserID::Gender::Age::Occupation::Zip-code)
+        # Load users
         self.users = pd.read_csv(
             f'{self.data_path}/users.dat',
             sep='::',
@@ -42,45 +41,45 @@ class MovieLensLoader:
             encoding='latin-1'
         )
         
-        print(f"✓ Loaded {len(self.ratings)} ratings")
-        print(f"✓ Loaded {len(self.movies)} movies")
-        print(f"✓ Loaded {len(self.users)} users")
+        print(f"Loaded {len(self.ratings)} ratings")
+        print(f"Users: {self.ratings['user_id'].nunique()}")
+        print(f"Movies: {self.ratings['movie_id'].nunique()}")
         
         return self.ratings, self.movies, self.users
     
     def get_train_test_split(self, test_size=0.2, random_state=42):
-        """Split ratings into train and test sets"""
+        """Split data into train and test sets"""
         if self.ratings is None:
             self.load_data()
         
         train_data, test_data = train_test_split(
-            self.ratings,
-            test_size=test_size,
+            self.ratings, 
+            test_size=test_size, 
             random_state=random_state
         )
         
-        print(f"✓ Train set: {len(train_data)} ratings")
-        print(f"✓ Test set: {len(test_data)} ratings")
+        # Save to processed folder
+        os.makedirs('data/processed', exist_ok=True)
+        train_data.to_csv('data/processed/train.csv', index=False)
+        test_data.to_csv('data/processed/test.csv', index=False)
+        
+        print(f"\nTrain set: {len(train_data)} ratings")
+        print(f"Test set: {len(test_data)} ratings")
         
         return train_data, test_data
     
-    def get_statistics(self):
-        """Print dataset statistics"""
-        if self.ratings is None:
-            self.load_data()
+    def get_user_item_matrix(self, data):
+        """Create user-item rating matrix"""
+        matrix = data.pivot_table(
+            index='user_id',
+            columns='movie_id',
+            values='rating'
+        ).fillna(0)
         
-        print("\n=== Dataset Statistics ===")
-        print(f"Total ratings: {len(self.ratings)}")
-        print(f"Unique users: {self.ratings['user_id'].nunique()}")
-        print(f"Unique movies: {self.ratings['movie_id'].nunique()}")
-        print(f"Rating range: {self.ratings['rating'].min()} - {self.ratings['rating'].max()}")
-        print(f"Average rating: {self.ratings['rating'].mean():.2f}")
-        print(f"Sparsity: {(1 - len(self.ratings) / (self.ratings['user_id'].nunique() * self.ratings['movie_id'].nunique())) * 100:.2f}%")
-
+        return matrix
 
 # Test the loader
 if __name__ == "__main__":
     loader = MovieLensLoader()
-    ratings, movies, users = loader.load_data()
-    loader.get_statistics()
     train, test = loader.get_train_test_split()
+    print("\n✅ Data loader working correctly!")
