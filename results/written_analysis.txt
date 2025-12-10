@@ -1,0 +1,16 @@
+
+ANALYSIS REPORT: GAN vs Collaborative Filtering Under Adversarial Noise
+
+1. CLEAN DATA PERFORMANCE
+============================================================
+On clean test data, CF achieved superior Precision@5 of 0.0527.
+
+2. PERFORMANCE UNDER NOISE
+============================================================
+CF degraded by 6.80%, GAN degraded by 6.61%.
+Robustness winner: GAN (maintains 0.18% more performance).
+
+3. RECOMMENDATIONS
+============================================================
+Use GAN in noisy/attack-prone environments.
+Use CF in clean/controlled environments.

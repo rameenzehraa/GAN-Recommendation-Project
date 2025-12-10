@@ -69,7 +69,6 @@ GAN-Recommendation-Project/
 
 ```
 Timeline
-
 Days 1-2: Setup & Data
 
 Days 2-4: Model Implementation
