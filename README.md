@@ -16,7 +16,7 @@ Comparing the robustness of **GAN-based** and **Collaborative Filtering (CF)** r
 
 ### Installation
 
-1. **Clone the repository:**
+1. **Set up repository:**
 ```bash
 git clone https://github.com/YOUR_USERNAME/GAN-Recommendation-Project.git
 cd GAN-Recommendation-Project
@@ -49,7 +49,7 @@ python src/data_loader.py
 python src/noise_injector.py
 
 ```
-Project Structure
+```Project Structure
 
 GAN-Recommendation-Project/
 ├── data/                          # Dataset files
@@ -67,10 +67,11 @@ GAN-Recommendation-Project/
 ├── README.md
 └── requirements.txt
 
-
+```
 Timeline
 Days 1-2: Setup & Data
 Days 2-4: Model Implementation
 Days 4-5: Testing & Evaluation
 Days 5-6: Analysis & Visualization
 Day 7: Report & Presentation
+
