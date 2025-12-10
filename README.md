@@ -1,12 +1,12 @@
 # GAN vs Collaborative Filtering: Robustness Analysis
 
 ## Project Overview
-Comparing the robustness of GAN-based and Collaborative Filtering recommendation systems against adversarial noise and data corruption.
+Comparing the robustness of **GAN-based** and **Collaborative Filtering (CF)** recommendation systems against adversarial noise and data corruption.
 
 ## Team Members
-- **Person 1:** Data Engineering & CF Implementation
-- **Person 2:** GAN Model Development & Training
-- **Person 3:** Evaluation & Analysis
+- **Nabira Khan**  
+- **Rameen Zehra**  
+- **Aisha Asif**  
 
 ## Setup Instructions
 
@@ -16,14 +16,12 @@ Comparing the robustness of GAN-based and Collaborative Filtering recommendation
 
 ### Installation
 
-1. **Clone the repository:**
+1. **Set up repository:**
 ```bash
 git clone https://github.com/YOUR_USERNAME/GAN-Recommendation-Project.git
 cd GAN-Recommendation-Project
-```
+Create virtual environment:
 
-2. **Create virtual environment:**
-```bash
 # Windows
 python -m venv venv
 venv\Scripts\activate
@@ -31,15 +29,11 @@ venv\Scripts\activate
 # Mac/Linux
 python -m venv venv
 source venv/bin/activate
-```
+Install dependencies:
 
-3. **Install dependencies:**
-```bash
 pip install -r requirements.txt
-```
+Download dataset:
 
-4. **Download dataset:**
-```bash
 cd data
 # Windows PowerShell
 Invoke-WebRequest -Uri "https://files.grouplens.org/datasets/movielens/ml-1m.zip" -OutFile "ml-1m.zip"
@@ -48,88 +42,42 @@ Expand-Archive -Path "ml-1m.zip" -DestinationPath "." -Force
 # Mac/Linux
 curl -O https://files.grouplens.org/datasets/movielens/ml-1m.zip
 unzip ml-1m.zip
-
 cd ..
-```
+Test the setup:
 
-5. **Test the setup:**
-```bash
 python src/data_loader.py
 python src/noise_injector.py
-```
 
-## Project Structure
 ```
+```Project Structure
+
 GAN-Recommendation-Project/
 ├── data/                          # Dataset files
 ├── models/                        # Saved trained models
 ├── results/                       # Evaluation results & charts
-├── notebooks/                     # Jupyter notebooks for exploration
+├── notebooks/                     # Jupyter notebooks / analysis.py
 ├── src/                          
-│   ├── data_loader.py            # ✅ COMPLETE - Loads MovieLens data
-│   ├── noise_injector.py         # ✅ COMPLETE - Injects noise
-│   ├── collaborative_filtering.py # 🔴 TODO - Person 1
-│   ├── gan_model.py              # 🔴 TODO - Person 2
-│   ├── train.py                  # 🔴 TODO - Person 2
-│   ├── evaluation.py             # 🔴 TODO - Person 3
-│   └── visualize.py              # 🔴 TODO - Person 3
+│   ├── data_loader.py            
+│   ├── noise_injector.py         
+│   ├── collaborative_filtering.py 
+│   ├── gan_model.py              
+│   ├── train.py                  
+│   ├── evaluation.py             
+│   └── visualize.py              
 ├── README.md
 └── requirements.txt
+
 ```
+Timeline
 
-## Work Division
+Days 1-2: Setup & Data
 
-### Person 1: Data & Baseline Implementation
-**Tasks:**
-- ✅ Data loader (DONE)
-- ✅ Noise injector (DONE)
-- 🔴 Implement Collaborative Filtering in `collaborative_filtering.py`
-- 🔴 Create training pipeline for CF
-- 🔴 Save/load CF model utilities
+Days 2-4: Model Implementation
 
-**Files to work on:**
-- `src/collaborative_filtering.py`
+Days 4-5: Testing & Evaluation
 
-### Person 2: GAN Model & Training
-**Tasks:**
-- 🔴 Implement GAN architecture in `gan_model.py`
-- 🔴 Create training loop in `train.py`
-- 🔴 Train both models (GAN + CF)
-- 🔴 Hyperparameter tuning
+Days 5-6: Analysis & Visualization
 
-**Files to work on:**
-- `src/gan_model.py`
-- `src/train.py`
+Day 7: Report & Presentation
 
-### Person 3: Evaluation & Analysis
-**Tasks:**
-- 🔴 Implement evaluation metrics in `evaluation.py`
-- 🔴 Create visualization code in `visualize.py`
-- 🔴 Test models on clean + noisy data
-- 🔴 Generate comparison charts
-- 🔴 Write analysis report
 
-**Files to work on:**
-- `src/evaluation.py`
-- `src/visualize.py`
-
-## Current Status
-- [x] Project setup
-- [x] Data loader
-- [x] Noise injection
-- [ ] Collaborative Filtering model
-- [ ] GAN model
-- [ ] Training pipeline
-- [ ] Evaluation metrics
-- [ ] Results & analysis
-
-## Timeline
-- **Days 1-2:** Setup & Data ✅
-- **Days 2-4:** Model Implementation (IN PROGRESS)
-- **Days 4-5:** Testing & Evaluation
-- **Days 5-6:** Analysis & Visualization
-- **Day 7:** Report & Presentation
-
-## Contact
-- Create issues for questions/problems
-- Use pull requests for code contributions
