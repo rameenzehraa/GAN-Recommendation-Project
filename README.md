@@ -70,8 +70,13 @@ GAN-Recommendation-Project/
 ```
 Timeline
 Days 1-2: Setup & Data
+
 Days 2-4: Model Implementation
+
 Days 4-5: Testing & Evaluation
+
 Days 5-6: Analysis & Visualization
+
 Day 7: Report & Presentation
+
 
