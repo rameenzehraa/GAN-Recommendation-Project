@@ -4,7 +4,21 @@ import seaborn as sns
 import os
 
 def create_comparison_charts():
-    """Create all visualization charts"""
+    """
+    Create visualizations comparing CF vs GAN performance.
+    
+    CHARTS CREATED:
+    1. Precision Comparison: Bar chart showing accuracy on each test set
+    2. NDCG Comparison: Bar chart showing ranking quality
+    3. Degradation Curves: Line chart showing performance drop as noise increases
+    4. Metrics Heatmap: Overview of all metrics across all conditions
+    5. Robustness Score: How much performance is retained under noise
+    
+    PURPOSE:
+    - Visually compare which model is more robust to noise
+    - Identify at what noise level each model breaks down
+    - Present findings in publication-ready format
+    """
     print("Creating visualizations...")
     
     # Load results
@@ -21,7 +35,8 @@ def create_comparison_charts():
     fig, ax = plt.subplots()
     x = range(len(results))
     width = 0.35
-    
+
+    # Create side-by-side bars (CF in blue, GAN in red)
     ax.bar([i - width/2 for i in x], results['cf_precision'], width, label='CF', color='#3498db')
     ax.bar([i + width/2 for i in x], results['gan_precision'], width, label='GAN', color='#e74c3c')
     
@@ -39,6 +54,8 @@ def create_comparison_charts():
     plt.close()
     
     # 2. NDCG Comparison
+    # Shows: Which model ranks items better at each noise level?
+    # (Similar structure to precision chart)
     fig, ax = plt.subplots()
     
     ax.bar([i - width/2 for i in x], results['cf_ndcg'], width, label='CF', color='#3498db')
@@ -58,6 +75,8 @@ def create_comparison_charts():
     plt.close()
     
     # 3. Degradation Curves
+    # Shows: How does performance decline as noise increases?
+    # Note: Flatter line = more robust model
     fig, ax = plt.subplots()
     
     noise_levels = ['Clean', '5%', '10%', '15%']
@@ -77,6 +96,8 @@ def create_comparison_charts():
     plt.close()
     
     # 4. All Metrics Heatmap
+    # Shows: Overview of ALL metrics at once
+    # Color coding: Green = good, Red = bad
     fig, ax = plt.subplots(figsize=(10, 6))
     
     # Prepare data for heatmap
@@ -91,7 +112,9 @@ def create_comparison_charts():
         'GAN Hit Rate': results['gan_hit_rate']
     })
     heatmap_data.index = results['test_set']
-    
+
+    # Create heatmap
+    # Transpose (.T) so metrics are rows and test sets are columns
     sns.heatmap(heatmap_data.T, annot=True, fmt='.3f', cmap='RdYlGn', center=0.5, ax=ax)
     ax.set_title('All Metrics Heatmap')
     
@@ -101,8 +124,13 @@ def create_comparison_charts():
     plt.close()
     
     # 5. Robustness Score (percent performance retained)
+    # Shows: What % of original performance is retained?
+    # 100% = no degradation, 50% = half as good
+
     fig, ax = plt.subplots()
     
+    # Calculate performance retention as percentage
+    # Formula: (noisy_performance / clean_performance) * 100
     cf_retention = (results['cf_precision'].iloc[1:] / results['cf_precision'].iloc[0]) * 100
     gan_retention = (results['gan_precision'].iloc[1:] / results['gan_precision'].iloc[0]) * 100
     
@@ -128,4 +156,11 @@ def create_comparison_charts():
     print("\n✅ All visualizations created in results/charts/")
 
 if __name__ == "__main__":
+    """
+    Run visualization after evaluation is complete.
+    
+    OUTPUT:
+    - 5 high-resolution PNG charts
+    - Saved in results/charts/ directory
+    """
     create_comparison_charts()

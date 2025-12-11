@@ -4,6 +4,19 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pickle
 
 class CollaborativeFiltering:
+    """
+    Collaborative Filtering Recommender System using Matrix Factorization
+    
+    This is the TRADITIONAL approach being tested against the GAN model.
+    It learns latent factors (hidden patterns) about users and items to predict ratings.
+    
+    How it works:
+    - Decomposes the user-item rating matrix into two smaller matrices
+    - User factors: What features/preferences each user has
+    - Item factors: What features/characteristics each item has
+    - Prediction = dot product of user and item factors + biases
+    """
+    
     def __init__(self, n_factors=50):
         self.n_factors = n_factors
         self.user_factors = None
