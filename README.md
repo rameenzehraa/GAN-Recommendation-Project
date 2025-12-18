@@ -3,6 +3,8 @@
 ## Project Overview
 Comparing the robustness of **GAN-based** and **Collaborative Filtering (CF)** recommendation systems against adversarial noise and data corruption.
 
+![GUI Demo](GUI%20gif.gif)
+
 ## Team Members
 - **Nabira Khan**  
 - **Rameen Zehra**  
@@ -79,6 +81,7 @@ Days 4-5: Testing & Evaluation
 Days 5-6: Analysis & Visualization
 
 Day 7: Report & Presentation
+
 
 
 
